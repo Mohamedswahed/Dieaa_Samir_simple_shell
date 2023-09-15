@@ -1,8 +1,8 @@
 #include "main.h"
 
-/**
- * aux_hlp_setenv - Help information to builtin setenv
- * Return: No return
+/*
+ # aux_hlp_setenv - Help information to builtin setenv
+ # Return: No return
  */
 void aux_hlp_setenv(void)
 {
@@ -14,9 +14,9 @@ void aux_hlp_setenv(void)
 	write(STDOUT_FILENO, hlp, _strlen(hlp));
 }
 
-/**
- * aux_hlp_alias - Help information to builtin alias.
- * Return: No return
+/*
+ # aux_hlp_alias - Help information to builtin alias.
+ # Return: No return
  */
 void aux_hlp_alias(void)
 {
@@ -26,9 +26,9 @@ void aux_hlp_alias(void)
 	write(STDOUT_FILENO, hlp, _strlen(hlp));
 }
 
-/**
- * aux_hlp_cd - Help information to builtin alias.
- * Return: No return
+/*
+ # aux_hlp_cd - Help information to builtin alias.
+ # Return: No return
  */
 void aux_hlp_cd(void)
 {
@@ -38,10 +38,10 @@ void aux_hlp_cd(void)
 	write(STDOUT_FILENO, hlp, _strlen(hlp));
 }
 
-/**
- * get_hlp - Retrieves Help messages according builtin
- * @datash: Data struct
- * Return: Return 1
+/*
+ # get_hlp - Retrieves Help messages according builtin
+ # @datash: Data struct
+ # Return: Return 1
 */
 int get_hlp(data_shell *datash)
 {

@@ -1,8 +1,8 @@
 #include "main.h"
 
-/**
- * aux_hlp - Help information to builtin help.
- * Return: No return
+/*
+ # aux_hlp - Help information to builtin help.
+ # Return: No return
  */
 void aux_hlp(void)
 {
@@ -14,9 +14,9 @@ void aux_hlp(void)
 	write(STDOUT_FILENO, hlp, _strlen(hlp));
 }
 
-/**
- * aux_hlp_general - Entry for Help information to Help builtin
- * Return: No return
+/*
+ # aux_hlp_general - Entry for Help information to Help builtin
+ # Return: No return
  */
 void aux_hlp_general(void)
 {
@@ -36,9 +36,9 @@ void aux_hlp_general(void)
 	write(STDOUT_FILENO, hlp, _strlen(hlp));
 }
 
-/**
- * aux_hlp_unsetenv - Help information to builtin unsetenv
- * Return: No return
+/*
+ # aux_hlp_unsetenv - Help information to builtin unsetenv
+ # Return: No return
  */
 void aux_hlp_unsetenv(void)
 {
@@ -48,9 +48,9 @@ void aux_hlp_unsetenv(void)
 	write(STDOUT_FILENO, hlp, _strlen(hlp));
 }
 
-/**
- * aux_hlp_env - Help information to builtin env
- * Return: No return
+/*
+ # aux_hlp_env - Help information to builtin env
+ # Return: No return
  */
 void aux_hlp_env(void)
 {
@@ -60,9 +60,9 @@ void aux_hlp_env(void)
 	write(STDOUT_FILENO, hlp, _strlen(hlp));
 }
 
-/**
- * aux_hlp_exit - Help information to the builint exit
- * Return: No return
+/*
+ # aux_hlp_exit - Help information to the builint exit
+ # Return: No return
  */
 void aux_hlp_exit(void)
 {
