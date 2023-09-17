@@ -12,6 +12,7 @@ void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
 	int lp_sp;
 	sep_list *ls_s;
 	line_list *ls_l;
+
 	lp_sp = 1;
 	ls_s = *list_s;
 	ls_l = *list_l;
@@ -128,6 +129,7 @@ int split_commands(data_shell *datash, char *input)
 	sep_list *head_s, *list_s;
 	line_list *head_l, *list_l;
 	int lp;
+
 	head_s = NULL;
 	head_l = NULL;
 	add_nodes(&head_s, &head_l, input);
