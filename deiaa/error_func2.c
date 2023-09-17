@@ -1,73 +1,148 @@
 #include "main.h"
-
-/**
- * strcat_cd - concatenates message for cd error.
- * @datash: directory for data relevant 
- * @masg: message to print
- * @err: output message
- * @ver_str: counter lines
- * Return: error message
+/*
+ # repeated_char - count repetitions of char.
+ # @in: string input
+ # @x: index
+ # Return: repetitions
  */
-char *strcat_cd(data_shell *datash, char *masg, char *err, char *ver_str)
+int repeated_char(char *in, int x)
 {
-	char *ilgal_flg;
+	if (*(in - 1) == *in)
+		return (repeated_char(in - 1, x + 1));
 
-	_strcpy(err, datash->av[0]);
-	_strcat(err, ": ");
-	_strcat(err, ver_str);
-	_strcat(err, ": ");
-	_strcat(err, datash->args[0]);
-	_strcat(err, masg);
-	if (datash->args[1][0] == '-')
-	{
-		ilgal_flg = malloc(3);
-		ilgal_flg[0] = '-';
-		ilgal_flg[1] = datash->args[1][1];
-		ilgal_flg[2] = '\0';
-		_strcat(err, ilgal_flg);
-		free(ilgal_flg);
-	}
-	else
-	{
-		_strcat(err, datash->args[1]);
-	}
-	_strcat(err, "\n");
-	_strcat(err, "\0");
-	return (err);
+	return (x);
 }
 
-/**
- * get_error - calls the error according the builtin, syntax or permission
- * @datash: The data struct.
- * @eval: error The value of the error
- * Return: error
+/*
+ # err_sep_op - finds syntax errors.
+ # @in: string input
+ # @x: index
+ # @lst: the last read character
+ # Return:  if error Return error index, 0 in case of no errors.
  */
-int get_err(data_shell *datash, int eval)
+int err_sep_op(char *in, int x, char lst)
 {
-	char *err;
-	switch (eval)
+	int cnt;
+	cnt = 0;
+	if (*in == '\0')
+		return (0);
+	if (*in == ' ' || *in == '\t')
+		return (err_sep_op(in + 1, x + 1, lst));
+	if (*in == ';')
+		if (lst == '|' || lst == '&' || lst == ';')
+			return (x);
+	if (*in == '|')
 	{
-	case -1:
-		err = err_env(datash);
-		break;
-	case 126:
-		err = err_path_126(datash);
-		break;
-	case 127:
-		err = err_not_found(datash);
-		break;
-	case 2:
-		if (_strcmp("exit", datash->args[0]) == 0)
-			err = err_exit_shell(datash);
-		else if (_strcmp("cd", datash->args[0]) == 0)
-			err = err_get_cd(datash);
+		if (lst == ';' || lst == '&')
+			return (x);
+		if (lst == '|')
+		{
+			cnt = repeated_char(in, 0);
+			if (cnt == 0 || cnt > 1)
+				return (x);
+		}
+	}
+	if (*in == '&')
+	{
+		if (lst == ';' || lst == '|')
+			return (x);
+		if (lst == '&')
+		{
+			cnt = repeated_char(in, 0);
+			if (cnt == 0 || cnt > 1)
+				return (x);
+		}
+	}
+	return (err_sep_op(in + 1, x + 1, *in));
+}
+
+/*
+ # first_char - finds index of the first char.
+ # @in: in string.
+ # @x: index
+ # Return: 1 if there is an err. 0 in other case.
+ */
+int first_char(char *in, int *x)
+{
+	for (*x = 0; in[*x]; *x += 1)
+	{
+		if (in[*x] == ' ' || in[*x] == '\t')
+			continue;
+		if (in[*x] == ';' || in[*x] == '|' || in[*x] == '&')
+			return (-1);
 		break;
 	}
-	if (err)
+	return (0);
+}
+
+/*
+ # print_syntax_err - prints when a syntax error is found
+ # @datash: data structure
+ # @in: input string
+ # @x: error index
+ # @b: error message control
+ # Return: No Return
+ */
+void print_syntax_err(data_shell *datash, char *in, int x, int b)
+{
+	char *masg, *masg2, *masg3, *err, *cnter;
+	int l;
+	if (in[x] == ';')
 	{
-		write(STDERR_FILENO, err, _strlen(err));
-		free(err);
+		if (b == 0)
+			masg = (in[x + 1] == ';' ? ";;" : ";");
+		else
+			masg = (in[x - 1] == ';' ? ";;" : ";");
 	}
-	datash->status = eval;
-	return (eval);
+	if (in[x] == '|')
+		masg = (in[x + 1] == '|' ? "||" : "|");
+	if (in[x] == '&')
+		masg = (in[x + 1] == '&' ? "&&" : "&");
+	masg2 = ": Syntax err: \"";
+	masg3 = "\" unexpected\n";
+	cnter = aux_itoa(datash->counter);
+	l = _strlen(datash->av[0]) + _strlen(cnter);
+	l += _strlen(masg) + _strlen(masg2) + _strlen(masg3) + 2;
+	err = malloc(sizeof(char) * (l + 1));
+	if (err == 0)
+	{
+		free(cnter);
+		return;
+	}
+	_strcpy(err, datash->av[0]);
+	_strcat(err, ": ");
+	_strcat(err, cnter);
+	_strcat(err, masg2);
+	_strcat(err, masg);
+	_strcat(err, masg3);
+	_strcat(err, "\0");
+	write(STDERR_FILENO, err, l);
+	free(err);
+	free(cnter);
+}
+
+/*
+ # check_syntax_err - Function to print syn. error
+ # @datash: data structure
+ # @in: string as input
+ # Return: 1 in case if there is an err & 0 if not
+ */
+int check_syntax_err(data_shell *datash, char *in)
+{
+	int strt = 0;
+	int f_char = 0;
+	int x = 0;
+	f_char = first_char(in, &strt);
+	if (f_char == -1)
+	{
+		print_syntax_err(datash, in, strt, 0);
+		return (1);
+	}
+	x = err_sep_op(in + strt, 0, *(in + strt));
+	if (x != 0)
+	{
+		print_syntax_err(datash, in, strt + x, 1);
+		return (1);
+	}
+	return (0);
 }

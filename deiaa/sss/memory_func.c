@@ -72,3 +72,20 @@ void _memcpy(void *n_p, const void *p, unsigned int size)
 	for (x = 0; x < size; x++)
 		char_n_p[x] = char_p[x];
 }
+
+/*
+ * *_strcpy - Copy string in pointer src.
+ * @dest: dest of copied str
+ * @src: the string source pointer.
+ * Return: the dest.
+ */
+char *_strcpy(char *dest, char *src)
+{
+	size_t i;
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[i] = src[i];
+	}
+	dest[i] = '\0';
+	return (dest);
+}

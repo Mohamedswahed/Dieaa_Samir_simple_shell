@@ -14,9 +14,9 @@ int _strlen(const char *str)
 }
 
 /*
- * _isdigit - To verify that input string is a number
- * @str: input string
- * Return: 1 if string is a number. 0 if not.
+ # _isdigit - To verify that input string is a number
+ # @str: input string
+ # Return: 1 if string is a number. 0 if not.
  */
 int _isdigit(const char *str)
 {
@@ -115,4 +115,3 @@ char *_strdup(const char *str)
 	_memcpy(n, str, len + 1);
 	return (n);
 }
-

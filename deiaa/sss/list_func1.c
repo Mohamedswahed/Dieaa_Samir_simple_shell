@@ -86,7 +86,7 @@ r_var *add_rvar_node(r_var **hd, int vr_l, char *v, int vl)
 		return (NULL);
 	n->len_var = vr_l;
 	n->v = v;
-	n->len_val = vl;
+	n->len_v = vl;
 	n->next = NULL;
 	tmp = *hd;
 	if (tmp == NULL)
