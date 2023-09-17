@@ -1,6 +1,6 @@
 #include "main.h"
 
-/*
+/**
  * get_err - calls the error according the builtin
  * @datash: data structure
  * @eval: error value
@@ -9,6 +9,7 @@
 int get_err(data_shell *datash, int eval)
 {
 	char *err;
+
 	switch (eval)
 	{
 	case -1:
@@ -36,7 +37,7 @@ int get_err(data_shell *datash, int eval)
 	return (eval);
 }
 
-/*
+/**
  * get_hlp - Retrieves help messages as builtin.
  * @datash: Data structure
  * Return: Return 1
@@ -66,7 +67,7 @@ int get_hlp(data_shell *datash)
 	return (1);
 }
 
-/*
+/**
  * bring_line - assigns the line var
  * @lineptr: Buffer that store the input str
  * @buffer: str that is been called to line
@@ -98,7 +99,7 @@ void bring_line(char **lineptr, size_t *n, char *buffer, size_t y)
 	}
 }
 
-/*
+/**
  * get_line - Read input from stream
  * @lineptr: buffer that stores the input
  * @n: size of lineptr
@@ -112,6 +113,7 @@ ssize_t get_line(char **lineptr, size_t *n, FILE *stream)
 	ssize_t ret_val;
 	char *buffer;
 	char t = 'z';
+
 	if (inp == 0)
 		fflush(stream);
 	else

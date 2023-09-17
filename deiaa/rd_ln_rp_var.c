@@ -11,9 +11,10 @@ char *rep_var(char *input, data_shell *datash)
 	r_var *head, *indx;
 	char *status, *new_input;
 	int ol, nl;
+
 	status = aux_itoa(datash->status);
 	head = NULL;
- ol = check_vars(&head, input, status, datash);
+	ol = check_vars(&head, input, status, datash);
 	if (head == NULL)
 	{
 		free(status);
@@ -78,7 +79,7 @@ void check_env(r_var **h, char *in, data_shell *data)
 
 /**
  * read_line - reads the input string
- * @i_eof: return value of function getline 
+ * @i_eof: return value of function getline
  * Return: input string
  */
 char *read_line(int *i_eof)

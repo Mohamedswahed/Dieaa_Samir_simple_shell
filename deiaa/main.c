@@ -35,6 +35,7 @@ void set_data(data_shell *datash, char **av)
 void free_data(data_shell *datash)
 {
 	unsigned int x;
+
 	for (x = 0; datash->_environ[x]; x++)
 	{
 		free(datash->_environ[x]);

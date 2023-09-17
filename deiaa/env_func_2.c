@@ -10,6 +10,7 @@ int _unsetenv(data_shell *datash)
 	char **realloc_environ;
 	char *var_env, *name_env;
 	int x, y, z;
+
 	if (datash->args[1] == NULL)
 	{
 		get_err(datash, -1);
@@ -75,6 +76,7 @@ void set_env(char *name, char *value, data_shell *datash)
 {
 	int x;
 	char *var_env, *name_env;
+
 	for (x = 0; datash->_environ[x]; x++)
 	{
 		var_env = _strdup(datash->_environ[x]);
@@ -101,8 +103,10 @@ void set_env(char *name, char *value, data_shell *datash)
  */
 char *copy_info(char *name, char *value)
 {
+
 	char *new;
 	int l_name, l_value, l;
+
 	l_name = _strlen(name);
 	l_value = _strlen(value);
 	l = l_name + l_value + 2;

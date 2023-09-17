@@ -9,6 +9,7 @@
 int cmp_env_name(const char *nenv, const char *name)
 {
 	int x;
+
 	for (x = 0; nenv[x] != '='; x++)
 	{
 		if (nenv[x] != name[x])
@@ -27,6 +28,7 @@ int cmp_env_name(const char *nenv, const char *name)
 int _env(data_shell *datash)
 {
 	int x, y;
+
 	for (x = 0; datash->_environ[x]; x++)
 	{
 
@@ -48,8 +50,10 @@ int _env(data_shell *datash)
  */
 char *_getenv(const char *name, char **_environ)
 {
+
 	char *ptr_env;
 	int x, mov;
+
 	ptr_env = NULL;
 	mov = 0;
 	for (x = 0; _environ[x]; x++)

@@ -1,15 +1,16 @@
 #include "main.h"
 /**
- # _which - command locate
- # @cmd: name of command
- # @_environ: env. var.
- # Return: command location.
+ * _which - command locate
+ * @cmd: name of command
+ * @_environ: env. var.
+ * Return: command location.
  */
 char *_which(char *cmd, char **_environ)
 {
 	char *pth, *p_pth, *tkn_pth, *dir;
 	int len_dir, len_cmd, x;
 	struct stat st;
+
 	pth = _getenv("pth", _environ);
 	if (pth)
 	{
@@ -47,11 +48,11 @@ char *_which(char *cmd, char **_environ)
 	return (NULL);
 }
 
-/*
- # is_cdir - checks ":" if is in the current directory.
- # @pth: type char pointer char.
- # @i: type int pointer of index.
- # Return: 1 if the pth is searchable, 0 otherwise.
+/**
+ * is_cdir - checks ":" if is in the current directory.
+ * @pth: type char pointer char.
+ * @x: type int pointer of index.
+ * Return: 1 if the pth is searchable, 0 otherwise.
  */
 int is_cdir(char *pth, int *x)
 {
@@ -66,10 +67,10 @@ int is_cdir(char *pth, int *x)
 	return (0);
 }
 
-/*
- # cmd_exec - executes command lines
- # @datash: data relevant (args and input)
- # Return: 1 on success.
+/**
+ * cmd_exec - executes command lines
+ * @datash: data relevant (args and input)
+ * Return: 1 on success.
  */
 int cmd_exec(data_shell *datash)
 {
@@ -112,11 +113,11 @@ int cmd_exec(data_shell *datash)
 	return (1);
 }
 
-/*
- # check_err_cmd - check if user has access permissions.
- # @dir: destination directory
- # @datash: data structure
- # Return: 1 in case of there is an error, 0 if not
+/**
+ * check_err_cmd - check if user has access permissions.
+ * @dir: destination directory
+ * @datash: data structure
+ * Return: 1 in case of there is an error, 0 if not
  */
 int check_err_cmd(char *dir, data_shell *datash)
 {
@@ -146,16 +147,17 @@ int check_err_cmd(char *dir, data_shell *datash)
 	return (0);
 }
 
-/*
- # is_executable - check if is executable
- # @datash: data structure
- # Return: 0 in case of executable, other number if not
+/**
+ * is_executable - check if is executable
+ * @datash: data structure
+ * Return: 0 in case of executable, other number if not
  */
 int is_executable(data_shell *datash)
 {
 	struct stat st;
 	int x;
 	char *in;
+
 	in = datash->args[0];
 	for (x = 0; in[x]; x++)
 	{
